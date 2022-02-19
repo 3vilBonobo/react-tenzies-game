@@ -24,11 +24,22 @@
 }
 
 .game-container {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(237, 248, 255);
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+}
+
+.die {
+  background-color: rgb(255, 255, 255);
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 2px 4px rgb(35, 35, 54);
 }
