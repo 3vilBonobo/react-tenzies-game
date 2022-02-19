@@ -15,7 +15,13 @@ const App = () => {
   return (
     <main className="App">
       <div className="game-container">
-        {dieElements}
+        <h1>Tenzies</h1>
+        <p>
+          Roll until all dice are the same. Click each die to freeze it at its
+          current value between rolls.
+        </p>
+        <div className="die-container">{dieElements}</div>
+
         <button className="btn" type="button" onClick={rollDice}>
           {'Roll'}
         </button>
