@@ -15,8 +15,8 @@ const App = () => {
   return (
     <main className="App">
       <div className="game-container">
-        <h1>Tenzies</h1>
-        <p>
+        <h1 className="title">Tenzies</h1>
+        <p className="description">
           Roll until all dice are the same. Click each die to freeze it at its
           current value between rolls.
         </p>
