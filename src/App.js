@@ -8,7 +8,7 @@ const App = () => {
     for (let i = 0; i < 10; i++) {
       randomDieValues.push({
         value: Math.ceil(Math.random() * 6),
-        isHeld: false,
+        isHeld: true,
         id: nanoid(),
       });
     }
@@ -20,15 +20,19 @@ const App = () => {
   const rollDice = () => {
     setDice(newDiceValues());
   };
-  const handleHoldValue = (e) => {
-    console.log('held');
-    console.log(e.target.innerText);
+  const holdDice = (id) => {
+    setDice((prevDice) =>
+      prevDice.map((die) => {
+        return die.id === id ? { ...die, isHeld: !die.isHeld } : die;
+      })
+    );
   };
+
   const dieElements = dice.map((die) => (
     <Die
       value={die.value}
       key={die.id}
-      holdValue={handleHoldValue}
+      holdDice={() => holdDice(die.id)}
       held={die.isHeld}
     />
   ));
