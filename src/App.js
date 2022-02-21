@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Die from './components/Die';
 import { nanoid } from 'nanoid';
 
@@ -19,6 +19,16 @@ const App = () => {
   };
 
   const [dice, setDice] = useState(newDiceValues());
+  const [tenzies, setTenzies] = useState(false);
+
+  useEffect(() => {
+    const allDiceHeld = dice.every((die) => die.isHeld);
+    const valueForComparison = dice[0].value;
+    const allSameValue = dice.every((die) => die.value === valueForComparison);
+    if (allDiceHeld && allSameValue) {
+      setTenzies(true);
+    }
+  }, [dice]);
 
   const rollDice = () => {
     setDice((prevDice) =>
