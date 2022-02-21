@@ -1,5 +1,9 @@
-const Die = ({ value }) => {
-  return <div className="die">{value}</div>;
+const Die = ({ value, holdValue }) => {
+  return (
+    <div className="die" onClick={holdValue}>
+      {value}
+    </div>
+  );
 };
 
 export default Die;

@@ -1,17 +1,38 @@
+import { useState } from 'react';
 import Die from './components/Die';
+import { nanoid } from 'nanoid';
 
 const App = () => {
-  let randomDieValues = [];
-  for (let i = 0; i < 10; i++) {
-    randomDieValues.push(Math.floor(Math.random() * 6 + 1));
-  }
-
-  const dieElements = randomDieValues.map((value, idx) => (
-    <Die value={value} key={idx} />
-  ));
-  const rollDice = () => {
-    console.log('rolled');
+  const newDiceValues = () => {
+    const randomDieValues = [];
+    for (let i = 0; i < 10; i++) {
+      randomDieValues.push({
+        value: Math.ceil(Math.random() * 6),
+        isHeld: false,
+        id: nanoid(),
+      });
+    }
+    return randomDieValues;
   };
+
+  const [dice, setDice] = useState(newDiceValues());
+
+  const rollDice = () => {
+    setDice(newDiceValues());
+  };
+  const handleHoldValue = (e) => {
+    console.log('held');
+    console.log(e.target.innerText);
+  };
+  const dieElements = dice.map((die) => (
+    <Die
+      value={die.value}
+      key={die.id}
+      holdValue={handleHoldValue}
+      held={die.isHeld}
+    />
+  ));
+
   return (
     <main className="App">
       <div className="game-container">
