@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Die from './components/Die';
 import { nanoid } from 'nanoid';
+import Confetti from 'react-confetti';
 
 const App = () => {
   const generateNewDie = () => {
@@ -31,11 +32,16 @@ const App = () => {
   }, [dice]);
 
   const rollDice = () => {
-    setDice((prevDice) =>
-      prevDice.map((die) => {
-        return die.isHeld ? die : generateNewDie();
-      })
-    );
+    if (!tenzies) {
+      setDice((prevDice) =>
+        prevDice.map((die) => {
+          return die.isHeld ? die : generateNewDie();
+        })
+      );
+    } else {
+      setTenzies(false);
+      setDice(newDiceValues());
+    }
   };
   const holdDice = (id) => {
     setDice((prevDice) =>
@@ -56,6 +62,7 @@ const App = () => {
 
   return (
     <main className="App">
+      {tenzies && <Confetti />}
       <div className="game-container">
         <h1 className="title">Tenzies</h1>
         <p className="description">
@@ -65,7 +72,7 @@ const App = () => {
         <div className="die-container">{dieElements}</div>
 
         <button className="btn" type="button" onClick={rollDice}>
-          {'Roll'}
+          {tenzies ? 'New Game' : 'Roll'}
         </button>
       </div>
     </main>
