@@ -3,14 +3,17 @@ import Die from './components/Die';
 import { nanoid } from 'nanoid';
 
 const App = () => {
+  const generateNewDie = () => {
+    return {
+      value: Math.ceil(Math.random() * 6),
+      isHeld: false,
+      id: nanoid(),
+    };
+  };
   const newDiceValues = () => {
     const randomDieValues = [];
     for (let i = 0; i < 10; i++) {
-      randomDieValues.push({
-        value: Math.ceil(Math.random() * 6),
-        isHeld: true,
-        id: nanoid(),
-      });
+      randomDieValues.push(generateNewDie());
     }
     return randomDieValues;
   };
@@ -18,7 +21,11 @@ const App = () => {
   const [dice, setDice] = useState(newDiceValues());
 
   const rollDice = () => {
-    setDice(newDiceValues());
+    setDice((prevDice) =>
+      prevDice.map((die) => {
+        return die.isHeld ? die : generateNewDie();
+      })
+    );
   };
   const holdDice = (id) => {
     setDice((prevDice) =>
